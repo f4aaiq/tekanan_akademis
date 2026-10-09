@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Caveat:wght@600&display=swap');
+
+// Override variabel Bootstrap (harus sebelum import Bootstrap)
+$primary: #17233B;
+$warning: #FFE066;
+$danger: #D62839;
+$body-bg: #F2F5F9;
+$body-color: #17233B;
+$font-family-sans-serif: 'Bricolage Grotesque', system-ui, sans-serif;
+$headings-font-weight: 800;
+$border-radius: .6rem;
+
+@import "bootstrap/scss/bootstrap";
+@import "landing";
