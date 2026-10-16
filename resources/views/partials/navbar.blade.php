@@ -6,10 +6,11 @@
         </button>
         <div class="collapse navbar-collapse" id="nav">
             <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
-                <li class="nav-item"><a class="nav-link" href="#penyebab">Penyebab</a></li>
-                <li class="nav-item"><a class="nav-link" href="#tanda">Tanda-tanda</a></li>
-                <li class="nav-item"><a class="nav-link" href="#cara">Cara kerja</a></li>
-                <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#penyebab">Penyebab</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#tanda">Tanda-tanda</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#cara">Cara kerja</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#faq">FAQ</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ Route::has('kartu') ? route('kartu') : '#' }}">Kartu curhat</a></li>
                 <li class="nav-item ms-lg-2">
                     <a class="btn btn-primary btn-sm px-3" href="{{ Route::has('quiz.index') ? route('quiz.index') : '#' }}">Mulai quiz</a>
                 </li>

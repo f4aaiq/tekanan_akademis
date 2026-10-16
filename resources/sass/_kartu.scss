@@ -1,0 +1,77 @@
+// BENTUK LIPATAN KERTAS (jumlah titik sama, jadi bisa berubah halus)
+$s0: polygon(0 0, 50% 0, 100% 0, 100% 50%, 100% 100%, 50% 100%, 0 100%, 0 50%);        // kertas utuh
+$s1: polygon(0 40%, 50% 0, 100% 40%, 100% 50%, 100% 100%, 50% 100%, 0 100%, 0 50%);    // ujung meruncing
+$s2: polygon(38% 38%, 50% 0, 62% 38%, 100% 78%, 56% 72%, 50% 100%, 44% 72%, 0 78%);    // pesawat
+
+// KARTU TERGANTUNG
+.hang { text-align: center; min-height: 400px; margin-top: 1rem; }
+.sway { display: inline-block; transform-origin: 50% 0; animation: sway 4s ease-in-out infinite alternate; }
+@keyframes sway { from { transform: rotate(-3deg); } to { transform: rotate(3deg); } }
+
+.string { width: 4px; height: 130px; margin: 0 auto; background: $pen; border-radius: 2px; transform-origin: top; }
+.note-card {
+    position: relative; display: flex; flex-direction: column; justify-content: center; gap: .25rem;
+    width: 240px; height: 240px; margin: -6px auto 0; padding: 1.5rem; background: $hl;
+    border: 2px solid $ink; box-shadow: 6px 8px 0 rgba($ink, .18);
+    font-family: 'Caveat', cursive; color: $ink; transition: transform .2s;
+    b { font-size: 2.2rem; line-height: 1.1; }
+    small { font-size: 1.4rem; }
+    &:hover { transform: rotate(2deg) scale(1.04); }
+    &:focus-visible { outline: 3px solid $pen; outline-offset: 4px; }
+    .pin {
+        position: absolute; top: -8px; left: 50%; width: 16px; height: 16px; margin-left: -8px;
+        border-radius: 50%; background: $pen; border: 2px solid $ink;
+    }
+}
+.hang.open .sway { animation: none; }
+.hang.open .string { animation: untie .6s forwards; }
+.hang.open .note-card { animation: drop .65s forwards; }
+@keyframes untie { to { transform: scaleY(0); opacity: 0; } }
+@keyframes drop { to { transform: translateY(30px) scale(1.08) rotate(3deg); opacity: 0; } }
+
+// MENULIS
+#stWrite { position: relative; }
+.write-card {
+    background: $hl repeating-linear-gradient(transparent 0 31px, rgba($ink, .18) 31px 32px);
+    border: 2px solid $ink; box-shadow: 6px 8px 0 rgba($ink, .18);
+    padding: 0 1.5rem 1rem; transform: rotate(-1deg);
+    transition: transform .6s ease, opacity .6s ease;
+    textarea {
+        width: 100%; border: 0; background: transparent; resize: none; outline: none;
+        line-height: 32px; font-family: 'Caveat', cursive; font-size: 1.55rem; color: $ink;
+    }
+    &.fold { transform: scale(.25) rotate(-8deg); opacity: 0; }
+}
+.care { border-left: 6px solid $pen; background: #fff; padding: 1rem 1.25rem; margin-top: 1rem; }
+
+// KERTAS DILIPAT JADI PESAWAT
+.sheet-wrap { // pembungkus: bayangan dan gerakan terbang
+    position: absolute; left: calc(50% - 100px); top: 40px; width: 200px; height: 200px;
+    opacity: 0; pointer-events: none; transform: rotate(-4deg);
+    filter: drop-shadow(4px 5px 0 rgba($ink, .25));
+    transition: opacity .3s ease, transform .7s ease;
+}
+.sheet { // kertas: bentuk berubah lewat clip-path
+    position: relative; width: 100%; height: 100%;
+    background: $hl repeating-linear-gradient(transparent 0 15px, rgba($ink, .18) 15px 16px);
+    clip-path: $s0; transition: clip-path .65s ease;
+    &::after { // garis lipatan tengah
+        content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px;
+        margin-left: -1px; background: rgba($ink, .4); opacity: 0; transition: opacity .4s ease;
+    }
+}
+.sheet-wrap.show { opacity: 1; }
+.sheet-wrap.f1 .sheet { clip-path: $s1; }
+.sheet-wrap.f2 { transform: rotate(-12deg) scale(.9); }
+.sheet-wrap.f2 .sheet { clip-path: $s2; &::after { opacity: 1; } }
+.sheet-wrap.go { animation: fly 1.5s ease-in forwards; }
+@keyframes fly {
+    0% { opacity: 1; transform: translate(0, 0) rotate(-12deg) scale(.9); }
+    100% { opacity: 0; transform: translate(45vw, -70vh) rotate(-35deg) scale(.35); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sway { animation: none; }
+    .hang.open .string, .hang.open .note-card, .sheet-wrap.go { animation: none; }
+    .write-card, .sheet, .sheet-wrap { transition: none; }
+}

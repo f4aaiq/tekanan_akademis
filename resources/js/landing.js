@@ -7,7 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 10);
         onScroll();
         window.addEventListener('scroll', onScroll, { passive: true });
-        new ScrollSpy(document.body, { target: '#siteNav', rootMargin: '-30% 0px -60% 0px' });
+        if (document.getElementById('beranda')) {
+            new ScrollSpy(document.body, { target: '#siteNav', rootMargin: '-30% 0px -60% 0px' });
+        }
     }
 
     // 2. Hero: slider "kepala penuh" memunculkan sticky note

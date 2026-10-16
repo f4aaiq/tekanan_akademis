@@ -103,6 +103,17 @@
     </div>
 </section>
 
+{{-- KARTU CURHAT --}}
+<section class="py-6">
+    <div class="container">
+        <div class="cta-box text-start">
+            <h2 class="display-6 fw-bold mb-2">Punya yang pengin diceritain?</h2>
+            <p class="mb-4">Buka kartu kuning, tulis apa saja, lalu lepaskan. Tulisanmu tidak dikirim dan tidak disimpan.</p>
+            <a href="{{ Route::has('kartu') ? route('kartu') : '#' }}" class="btn btn-warning btn-lg px-4">Buka kartu</a>
+        </div>
+    </div>
+</section>
+
 {{-- FAQ --}}
 <section class="py-6 bg-white" id="faq">
     <div class="container" style="max-width: 780px">
